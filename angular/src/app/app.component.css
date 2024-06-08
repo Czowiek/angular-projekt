@@ -1,14 +1,57 @@
+.przyciski {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+button {
+  padding: 8px;
+  background-color: transparent;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #c0c0ff;
+}
+
+select {
+  padding: 4px;
+  margin-left: 8px;
+}
+
 .title {
   text-align: center;
 }
+
 .wrapper {
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
+  flex-direction: column;
 }
-tr td:first-child {
-  padding-right: 16px;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
 }
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+
 .error{
   display: flex;
   flex-direction: column;

@@ -1,13 +1,7 @@
-import {getCurrentDate} from "./getCurrentDate";
-
-export function getFirstAndLastDayOfCurrentYear() {
+export function zwrocPierwszyDzienTegoRoku(): string {
   const currentYear = new Date().getFullYear();
 
-  // Pierwszy dzień roku
   const firstDay = new Date(currentYear, 0, 1);
-
-  // Ostatni dzień roku
-  const lastDay = new Date(currentYear, 11, 31);
 
   function formatDate(date:Date) {
     const year = date.getFullYear();
@@ -16,8 +10,5 @@ export function getFirstAndLastDayOfCurrentYear() {
     return `${year}-${month}-${day}`;
   }
 
-  return {
-    firstDay: formatDate(firstDay),
-    lastDay: getCurrentDate(),
-  };
+  return formatDate(firstDay);
 }

@@ -1,95 +1,83 @@
 <div>
-  <button (click)="synchronizeRates()">Synchronizuj dane z bieżącego roku dla dostępnych walut</button>
-  <div>
-    <label for="currency">Select Currency:</label>
-    <select id="currency" [(ngModel)]="selectedCurrency" (change)="loadRates(selectedCurrency)">
-      <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
-    </select>
+  <div class="przyciski">
+    <button (click)="synchronizujDaneWBD()">Synchronizuj dane</button>
+    <div>
+      <label for="currency">Wybierz walute:</label>
+      <select id="currency" [(ngModel)]="wybranaWaluta" (change)="zaladujKurs(wybranaWaluta)">
+        <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+      </select>
+    </div>
   </div>
   <h1 class="title">KURS {{ title }}</h1>
-  <div class="error" *ngIf="isError">
-    <h3>Wystąpił błąd pobierania danych!</h3>
-    <button (click)="synchronizeRates()">Synchronizuj dane!</button>
+  <div class="error" *ngIf="blad">
+    <h3>Błąd pobierania danych!</h3>
+    <button (click)="synchronizujDaneWBD()">Synchronizuj dane!</button>
   </div>
-  <div class="wrapper" *ngIf="!isError">
-    <table>
-      <tr>
-        <th>Ostatni dzień</th>
-      </tr>
-      <tr *ngIf="dayRates">
-        <td>
-          <table>
-            <tr>
-              <th>Data</th>
-              <th>Kurs</th>
-            </tr>
-            <tr *ngFor="let rate of dayRates">
-              <td>{{ rate.effectiveDate }}</td>
-              <td>{{ rate.mid }}</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
+  <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+    <button><a href="#dzien">Idź do dnia</a></button>
+    <button><a href="#miesiac">Idź do miesiąca</a></button>
+    <button><a href="#kwartal">Idź do kwartału</a></button>
+    <button><a href="#rok">Idź do roku</a></button>
+  </div>
+  <div class="wrapper" *ngIf="!blad">
+    <table *ngIf="kursDzien" id="dzien">
+      <thead>
+        <tr>
+          <th>Dzień</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td *ngFor="let rate of kursDzien">
+            <p>{{ rate.effectiveDate }} | {{ rate.mid }}</p>
+          </td>
+        </tr>
+      </tbody>
     </table>
 
-    <table>
+    <table *ngIf="kursMiesiac" id="miesiac">
+      <thead>
       <tr>
-        <th>Ostatni miesiąc</th>
+        <th>Miesiąc</th>
       </tr>
-      <tr *ngIf="monthsRates">
+      </thead>
+      <tbody>
+      <tr *ngFor="let rate of kursMiesiac">
         <td>
-          <table>
-            <tr>
-              <th>Data</th>
-              <th>Kurs</th>
-            </tr>
-            <tr *ngFor="let rate of monthsRates">
-              <td>{{ rate.effectiveDate }}</td>
-              <td>{{ rate.mid }}</td>
-            </tr>
-          </table>
+          <p>{{ rate.effectiveDate }} | {{ rate.mid }}</p>
         </td>
       </tr>
+      </tbody>
     </table>
 
-    <table>
+    <table *ngIf="kursKwartal" id="kwartal">
+      <thead>
       <tr>
-        <th>Ostatni kwartał</th>
+        <th>Kwartał</th>
       </tr>
-      <tr *ngIf="quarterRates">
+      </thead>
+      <tbody>
+      <tr *ngFor="let rate of kursKwartal">
         <td>
-          <table>
-            <tr>
-              <th>Data</th>
-              <th>Kurs</th>
-            </tr>
-            <tr *ngFor="let rate of quarterRates">
-              <td>{{ rate.effectiveDate }}</td>
-              <td>{{ rate.mid }}</td>
-            </tr>
-          </table>
+          <p>{{ rate.effectiveDate }} | {{ rate.mid }}</p>
         </td>
       </tr>
+      </tbody>
     </table>
 
-    <table>
+    <table *ngIf="wszystkieKursy" id="rok">
+      <thead>
       <tr>
-        <th>Ostatni rok</th>
+        <th>Rok</th>
       </tr>
-      <tr *ngIf="yearRates">
+      </thead>
+      <tbody>
+      <tr *ngFor="let rate of wszystkieKursy">
         <td>
-          <table>
-            <tr>
-              <th>Data</th>
-              <th>Kurs</th>
-            </tr>
-            <tr *ngFor="let rate of yearRates">
-              <td>{{ rate.effectiveDate }}</td>
-              <td>{{ rate.mid }}</td>
-            </tr>
-          </table>
+          <p>{{ rate.effectiveDate }} | {{ rate.mid }}</p>
         </td>
       </tr>
+      </tbody>
     </table>
   </div>
 </div>
