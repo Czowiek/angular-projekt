@@ -1,0 +1,95 @@
+<div>
+  <button (click)="synchronizeRates()">Synchronizuj dane z bieżącego roku dla dostępnych walut</button>
+  <div>
+    <label for="currency">Select Currency:</label>
+    <select id="currency" [(ngModel)]="selectedCurrency" (change)="loadRates(selectedCurrency)">
+      <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+    </select>
+  </div>
+  <h1 class="title">KURS {{ title }}</h1>
+  <div class="error" *ngIf="isError">
+    <h3>Wystąpił błąd pobierania danych!</h3>
+    <button (click)="synchronizeRates()">Synchronizuj dane!</button>
+  </div>
+  <div class="wrapper" *ngIf="!isError">
+    <table>
+      <tr>
+        <th>Ostatni dzień</th>
+      </tr>
+      <tr *ngIf="dayRates">
+        <td>
+          <table>
+            <tr>
+              <th>Data</th>
+              <th>Kurs</th>
+            </tr>
+            <tr *ngFor="let rate of dayRates">
+              <td>{{ rate.effectiveDate }}</td>
+              <td>{{ rate.mid }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th>Ostatni miesiąc</th>
+      </tr>
+      <tr *ngIf="monthsRates">
+        <td>
+          <table>
+            <tr>
+              <th>Data</th>
+              <th>Kurs</th>
+            </tr>
+            <tr *ngFor="let rate of monthsRates">
+              <td>{{ rate.effectiveDate }}</td>
+              <td>{{ rate.mid }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th>Ostatni kwartał</th>
+      </tr>
+      <tr *ngIf="quarterRates">
+        <td>
+          <table>
+            <tr>
+              <th>Data</th>
+              <th>Kurs</th>
+            </tr>
+            <tr *ngFor="let rate of quarterRates">
+              <td>{{ rate.effectiveDate }}</td>
+              <td>{{ rate.mid }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th>Ostatni rok</th>
+      </tr>
+      <tr *ngIf="yearRates">
+        <td>
+          <table>
+            <tr>
+              <th>Data</th>
+              <th>Kurs</th>
+            </tr>
+            <tr *ngFor="let rate of yearRates">
+              <td>{{ rate.effectiveDate }}</td>
+              <td>{{ rate.mid }}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
