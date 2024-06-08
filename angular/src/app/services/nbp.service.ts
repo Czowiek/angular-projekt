@@ -24,14 +24,14 @@ export class NbpService {
     }));
 
     const ratesParsed = rates.map(({ code, rates }) => ({
-      nazwa_waluty: code,
-      data_synchronizacji: new Date().toLocaleString(),
+      znak_waluty: code,
+      data: new Date().toLocaleString(),
       kurs: JSON.stringify(rates)
     }));
 
     await firstValueFrom(this.postRatesToDB(ratesParsed));
 
-    callback?.(ratesParsed.filter((c) => c.nazwa_waluty === currency));
+    callback?.(ratesParsed.filter((c) => c.znak_waluty === currency));
   }
 
   getRatesFromDB(type: string): Observable<any> {

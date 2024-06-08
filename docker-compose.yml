@@ -1,32 +1,14 @@
 services:
-  web:
-    build:
-      context: client
-    ports:
-      - 4200:4200
-    volumes:
-      - ./client:/project
-      - /project/node_modules
-
-  api:
-    build:
-      context: server
-    ports:
-      - 8000:8000
-    volumes:
-      - ./server:/app
-
   postgres:
     image: postgres:15-alpine
     ports:
       - 5432:5432
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_pat:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=db_password
-      - POSTGRES_DB=nbp_viewer
-      - POSTGRES_USER=postgres
-
+      - POSTGRES_USER=administrator
+      - POSTGRES_PASSWORD=admin_password
+      - POSTGRES_DB=nbp
 
   adminer:
     image: adminer
@@ -34,5 +16,22 @@ services:
     ports:
       - 8080:8080
 
+  api:
+    build:
+      context: fastapi
+    ports:
+      - 8000:8000
+    volumes:
+      - ./fastapi:/app
+
+  web:
+    build:
+      context: angular
+    ports:
+      - 4200:4200
+    volumes:
+      - ./angular:/project
+      - /project/node_modules
+
 volumes:
-  postgres_data:
+  postgres_pat:

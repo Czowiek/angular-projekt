@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    this.title = data[0].nazwa_waluty;
+    this.title = data[0].znak_waluty;
 
     const dataParsed  = JSON.parse(data[0].kurs);
     this.yearRates = dataParsed;
